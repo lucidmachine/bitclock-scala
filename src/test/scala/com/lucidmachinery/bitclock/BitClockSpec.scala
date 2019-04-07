@@ -1,30 +1,48 @@
 import org.scalatest._
+import com.lucidmachinery.bitclock.BitClock._
+import com.lucidmachinery.bitclock._
 
-class BitClockSpec extends WordSpec {
-  "Bit" when {
+class BitClockSpec extends WordSpec with Matchers {
+  "bit" when {
     "the given place value is active in the given digit" should {
-      "return 1" in {
-        fail // TODO
+      "return One" in {
+        bit(8, Digit.Nine)  should be (Bit.One)
+        bit(4, Digit.Six)   should be (Bit.One)
+        bit(2, Digit.Six)   should be (Bit.One)
+        bit(1, Digit.Seven) should be (Bit.One)
       }
     }
+
     "the given place value is not active in the given digit" should {
-      "return 0" in {
-        fail // TODO
+      "return Zero" in {
+        bit(8, Digit.Seven) should be (Bit.Zero)
+        bit(4, Digit.Eight) should be (Bit.Zero)
+        bit(2, Digit.Nine)  should be (Bit.Zero)
+        bit(1, Digit.Four)  should be (Bit.Zero)
       }
     }
   }
 
-  "BitDigit" when {
-    "given a positive integer 1 <= n <= 9" should {
-      "return an array of 4 Bits representing that number" in {
-        fail // TODO
+  "bitDigit" when {
+    "given a Digit" should {
+      "return a Tuple of 4 Bits representing that number" in {
+        bitDigit(Digit.Zero)  should be ((Bit.Zero, Bit.Zero, Bit.Zero, Bit.Zero))
+        bitDigit(Digit.One)   should be ((Bit.Zero, Bit.Zero, Bit.Zero, Bit.One))
+        bitDigit(Digit.Two)   should be ((Bit.Zero, Bit.Zero, Bit.One, Bit.Zero))
+        bitDigit(Digit.Three) should be ((Bit.Zero, Bit.Zero, Bit.One, Bit.One))
+        bitDigit(Digit.Four)  should be ((Bit.Zero, Bit.One, Bit.Zero, Bit.Zero))
+        bitDigit(Digit.Five)  should be ((Bit.Zero, Bit.One, Bit.Zero, Bit.One))
+        bitDigit(Digit.Six)   should be ((Bit.Zero, Bit.One, Bit.One, Bit.Zero))
+        bitDigit(Digit.Seven) should be ((Bit.Zero, Bit.One, Bit.One, Bit.One))
+        bitDigit(Digit.Eight) should be ((Bit.One, Bit.Zero, Bit.Zero, Bit.Zero))
+        bitDigit(Digit.Nine)  should be ((Bit.One, Bit.Zero, Bit.Zero, Bit.One))
       }
     }
   }
 
-  "BitTime" when {
-    "given a DateTime" should {
-      "return 6 BitDigits representing that DateTime's time in HHmmss format" in {
+  "bitTime" when {
+    "given a LocalTime" should {
+      "return 6 BitDigits representing that LocalTime's time in HHmmss format" in {
         fail // TODO
       }
     }

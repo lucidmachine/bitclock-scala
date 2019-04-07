@@ -6,6 +6,6 @@ lazy val core = (project in file("."))
   .settings(
     name := "BitClock",
     libraryDependencies += "com.github.nscala-time" %% "nscala-time" % "2.22.0",
+
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.5" % Test,
   )
-
