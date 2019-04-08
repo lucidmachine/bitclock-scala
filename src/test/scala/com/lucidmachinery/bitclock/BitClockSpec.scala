@@ -1,6 +1,7 @@
-import org.scalatest._
-import com.lucidmachinery.bitclock.BitClock._
+import com.github.nscala_time.time.Imports._
 import com.lucidmachinery.bitclock._
+import com.lucidmachinery.bitclock.BitClock._
+import org.scalatest._
 
 class BitClockSpec extends WordSpec with Matchers {
   "bit" when {
@@ -43,12 +44,28 @@ class BitClockSpec extends WordSpec with Matchers {
   "bitTime" when {
     "given a LocalTime" should {
       "return 6 BitDigits representing that LocalTime's time in HHmmss format" in {
-        fail // TODO
+        bitTime(LocalTime.parse("12:34:56")) should be ((
+          (Bit.Zero, Bit.Zero, Bit.Zero, Bit.One),  // 1
+          (Bit.Zero, Bit.Zero, Bit.One , Bit.Zero), // 2
+          (Bit.Zero, Bit.Zero, Bit.One, Bit.One),   // 3
+          (Bit.Zero, Bit.One, Bit.Zero, Bit.Zero),  // 4
+          (Bit.Zero, Bit.One, Bit.Zero, Bit.One),   // 5
+          (Bit.Zero, Bit.One, Bit.One, Bit.Zero),   // 6
+        ))
       }
     }
-    "given no parameters" should {
-      "return 6 BitDigits representing the current time in HHmmss format" in {
-        fail // TODO
+  }
+
+  "prettyPrint" when {
+    "given a BitTime" should {
+      "return the BitTime as columns of BitDigits in the order HHmmss." in {
+        val prettyStr = """
+                            |0 0 0 0 0 0
+                            |0 0 0 1 1 1
+                            |0 1 1 0 0 1
+                            |1 0 1 0 1 0
+                            """.stripMargin('|')
+        prettyPrint(bitTime(LocalTime.parse("12:34:56"))) should be (prettyStr)
       }
     }
   }

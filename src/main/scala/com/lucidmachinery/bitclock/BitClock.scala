@@ -47,12 +47,12 @@ object BitClock {
     bitDigit(Digit(time.second.get % 10)),
   )
 
-  /** Returns a BitTime representing the current time. */
-  def bitTime(): BitTime =
-    bitTime(LocalTime.now())
+  /** Returns the BitTime as columns of BitDigits in the order HHmmss. */
+  def prettyPrint(bitTime: BitTime): String =
+    ???
 
   /** Prints the current BitTime to stdout. */
   def main(args: Array[String]): Unit = {
-    println(bitTime())
+    println(prettyPrint(bitTime(LocalTime.now())))
   }
 }
